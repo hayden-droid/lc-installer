@@ -22,7 +22,7 @@ export default class Percentage {
         if(numberLength < 2){
             percentage = "0"+percentage
         }
-        return `[\x1b[31mLightcord\x1b[0m] [${progress}] ${byteSize(from)}/${byteSize(to)} ${percentage}%`
+        return `[\x1b[31mMemeitizerCord\x1b[0m] [${progress}] ${byteSize(from)}/${byteSize(to)} ${percentage}%`
     }
 
     getElapsedTime(){

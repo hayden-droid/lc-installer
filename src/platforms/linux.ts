@@ -17,7 +17,7 @@ export async function start(isMain:boolean){ // detect if npx was used or not
         options: [
             {
                 id: "install",
-                label: "Install Lightcord",
+                label: "Install MemeitizerCord",
                 async onClick(){
                     menu.disable()
 
@@ -35,7 +35,7 @@ export async function start(isMain:boolean){ // detect if npx was used or not
 }
 
 export async function download(){
-    linuxLogger.log("Downloading Lightcord to "+downloadPath)
+    linuxLogger.log("Downloading MemeitizerCord to "+downloadPath)
     let release = await getLatestReleaseInfos()
     linuxLogger.log(`Downloading release ${release.tag_name} (${release.html_url})`)
     let asset = await getAsset(release.assets)
@@ -47,11 +47,11 @@ export async function download(){
     linuxLogger.log(`Unzipping... This may take some minutes at worst`)
     let folderPath = await unzipFile(downloadPath)
 
-    linuxLogger.log(`\x1b[32mFinished unzipping\x1b[0m. Moving \x1b[31mLightcord\x1b[0m and cleaning stuff`)
+    linuxLogger.log(`\x1b[32mFinished unzipping\x1b[0m. Moving \x1b[31mMemeitizerCord\x1b[0m and cleaning stuff`)
 
-    let newPath = join(homedir(), "Lightcord")
+    let newPath = join(homedir(), "MemeitizerCord")
     if(fs.existsSync(newPath)){
-        linuxLogger.info(`Deleting actual Lightcord.`)
+        linuxLogger.info(`Deleting actual MemeitizerCord.`)
         await fs.promises.rmdir(newPath, {recursive: true})
     }
     await fs.promises.mkdir(newPath)
@@ -62,7 +62,7 @@ export async function download(){
     await fs.promises.unlink(downloadPath)
 
     linuxLogger.log(`\x1b[32mFinished moving, launching...\x1b[0m`)
-    let exePath = path.join(folderPath, "Lightcord")
+    let exePath = path.join(folderPath, "MemeitizerCord")
 
     await new Promise<void>((resolve, reject) => {
         let child = spawn.spawn(exePath, {
@@ -73,5 +73,5 @@ export async function download(){
         })
         resolve()
     })
-    linuxLogger.log(`\x1b[31mLightcord\x1b[0m is \x1b[32mnow installed\x1b[0m !`)
+    linuxLogger.log(`\x1b[31mMemeitizerCord\x1b[0m is \x1b[32mnow installed\x1b[0m !`)
 }

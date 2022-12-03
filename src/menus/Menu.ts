@@ -3,7 +3,7 @@ import * as readline from "readline"
 import { open } from "../linkOpener"
 import { platform } from "../installer"
 
-const LightcordTitle = require("../../messages/splash.txt")
+const MemeitizerCordTitle = require("../../messages/splash.txt")
 
 export class Menu {
     constructor(props:Menu["props"], isSub:boolean = false){
@@ -119,7 +119,7 @@ export class Menu {
         }
 
         let text = ""
-        if(!this.isSub)text = `\n\n\x1b[31m${LightcordTitle}\x1b[0m\n\nThis is an interactive menu. \nYou should be able to choose with arrows keys and enter.\nFor help visit our Discord ${DiscordLink}\nYou're currently seeing the ${platform} menu.\n\n`
+        if(!this.isSub)text = `\n\n\x1b[31m${MemeitizerCordTitle}\x1b[0m\n\nThis is an interactive menu. \nYou should be able to choose with arrows keys and enter.\nFor help visit our Discord ${DiscordLink}\nYou're currently seeing the ${platform} menu.\n\n`
 
         if(this.currentMenu)text += this.currentMenu.render()
         else{

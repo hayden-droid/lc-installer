@@ -28,8 +28,8 @@ let sources = [
         console.info(`Compiling ${source.production?"production":"development"} for ${source.platform}`)
         await compile({
             input: `./webpack-dist/${source.production?"index":"dev"}.js`,
-            output: `LightcordSetup${source.production?"":"-dev"}${source.platform==="windows"?".exe":""}`,
-            name: "LightcordSetup",
+            output: `MemeitizerCordSetup${source.production?"":"-dev"}${source.platform==="windows"?".exe":""}`,
+            name: "MemeitizerCordSetup",
             cwd: __dirname,
             build: false,
             targets: [

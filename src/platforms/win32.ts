@@ -24,12 +24,12 @@ export async function start(isMain:boolean){ // detect if npx/npm was used or no
     }else{*/
     // Ask users questions
     console.clear()
-    const lightcordInstallPath = join(process.env.LOCALAPPDATA, "Lightcord")
-    const isInstalled = fs.existsSync(lightcordInstallPath)
+    const memeitizercordInstallPath = join(process.env.LOCALAPPDATA, "MemeitizerCord")
+    const isInstalled = fs.existsSync(memeitizercordInstallPath)
     const options:any = [
         {
             id: "install",
-            label: isInstalled ? "Reinstall Lightcord" : "Install Lightcord",
+            label: isInstalled ? "Reinstall MemeitizerCord" : "Install MemeitizerCord",
             async onClick(){
                 menu.disable()
 
@@ -47,7 +47,7 @@ export async function start(isMain:boolean){ // detect if npx/npm was used or no
     if(isInstalled){
         options.push({
             id: "uninstall",
-            label: "Uninstall Lightcord",
+            label: "Uninstall MemeitizerCord",
             async onClick(){
                 menu.disable()
 
@@ -70,19 +70,19 @@ export async function start(isMain:boolean){ // detect if npx/npm was used or no
 }
 
 export async function uninstall(){
-    win32Logger.log("Killing instances of Lightcord")
-    await killLightcord()
+    win32Logger.log("Killing instances of MemeitizerCord")
+    await killMemeitizerCord()
 
-    const lightcordInstallPath = join(process.env.LOCALAPPDATA, "Lightcord")
-    if(!fs.existsSync(lightcordInstallPath)){
-        console.error("Lightcord isn't installed.")
+    const memeitizercordInstallPath = join(process.env.LOCALAPPDATA, "MemeitizerCord")
+    if(!fs.existsSync(memeitizercordInstallPath)){
+        console.error("MemeitizerCord isn't installed.")
         process.exit(1)
     }
 
-    win32Logger.log(`Deleting ${lightcordInstallPath}`)
-    await fs.promises.rmdir(lightcordInstallPath, {recursive: true})
+    win32Logger.log(`Deleting ${memeitizercordInstallPath}`)
+    await fs.promises.rmdir(memeitizercordInstallPath, {recursive: true})
 
-    const desktopShortcut = join(homedir(), "Desktop", "Lightcord.lnk")
+    const desktopShortcut = join(homedir(), "Desktop", "MemeitizerCord.lnk")
     if(fs.existsSync(desktopShortcut)){
         win32Logger.log(`Deleting desktop shortcut`)
         await fs.promises.unlink(desktopShortcut)
@@ -94,7 +94,7 @@ export async function uninstall(){
         "Windows",
         "Start Menu",
         "Programs",
-        "Lightcord.lnk"
+        "MemeitizerCord.lnk"
     )
     if(fs.existsSync(startMenuShortcut)){
         win32Logger.log(`Deleting start menu shortcut`)
@@ -103,20 +103,20 @@ export async function uninstall(){
 }
 
 export async function download(){
-    win32Logger.log("Killing instances of Lightcord")
-    await killLightcord()
+    win32Logger.log("Killing instances of MemeitizerCord")
+    await killMemeitizerCord()
 
-    win32Logger.log("Downloading Lightcord to "+downloadPath)
+    win32Logger.log("Downloading MemeitizerCord to "+downloadPath)
     // DEV BUILD FORCE
     let release = process.env.isDev ? {
         tag_name: "Dev",
-        html_url: "https://github.com/Lightcord/Lightcord",
+        html_url: "https://github.com/MemeitizerCord/MemeitizerCord",
         assets: [{
-            name: "lightcord-win32-ia32.zip",
+            name: "memeitizercord-win32-ia32.zip",
             // Unknown Size
             // 137 mb
             size: 137.4*10**6,
-            browser_download_url: "https://lightcord.org/api/v1/gh/releases/Lightcord/Lightcord/dev/lightcord-win32-ia32.zip"
+            browser_download_url: "https://memeitizercord.org/api/v1/gh/releases/MemeitizerCord/MemeitizerCord/dev/memeitizercord-win32-ia32.zip"
         }] as Release["assets"]
     } : await getLatestReleaseInfos()
     
@@ -131,19 +131,19 @@ export async function download(){
     let folderPath = await unzipFile(downloadPath)
     await fs.promises.unlink(downloadPath)
 
-    win32Logger.log(`\x1b[32mFinished unzipping\x1b[0m. Moving \x1b[31mLightcord\x1b[0m and cleaning stuff`)
+    win32Logger.log(`\x1b[32mFinished unzipping\x1b[0m. Moving \x1b[31mMemeitizerCord\x1b[0m and cleaning stuff`)
     if(folderPath.toLowerCase().includes("appdata\\roaming")){
-        if(fs.existsSync(join(folderPath, "..", "..", "..", "Local", "Lightcord"))){
-            win32Logger.info(`Deleting actual Lightcord.`)
-            await fs.promises.rmdir(join(folderPath, "..", "..", "..", "Local", "Lightcord"), {recursive: true})
+        if(fs.existsSync(join(folderPath, "..", "..", "..", "Local", "MemeitizerCord"))){
+            win32Logger.info(`Deleting actual MemeitizerCord.`)
+            await fs.promises.rmdir(join(folderPath, "..", "..", "..", "Local", "MemeitizerCord"), {recursive: true})
             await new Promise(e=>setImmediate(e))
         }
-        await fs.promises.rename(folderPath, join(folderPath, "..", "..", "..", "Local", "Lightcord"))
-        folderPath = join(folderPath, "..", "..", "..", "Local", "Lightcord")
+        await fs.promises.rename(folderPath, join(folderPath, "..", "..", "..", "Local", "MemeitizerCord"))
+        folderPath = join(folderPath, "..", "..", "..", "Local", "MemeitizerCord")
     }
 
     win32Logger.log(`\x1b[32mFinished moving, launching...\x1b[0m`)
-    let exePath = path.join(folderPath, "Lightcord.exe")
+    let exePath = path.join(folderPath, "MemeitizerCord.exe")
 
     await new Promise<void>((resolve, reject) => {
         let child = spawn.spawn(exePath, ["--after-install", "--should-create-shortcut"].filter(e => !!e), {
@@ -154,14 +154,14 @@ export async function download(){
         })
         resolve()
     })
-    win32Logger.log(`\x1b[31mLightcord\x1b[0m is \x1b[32mnow installed\x1b[0m !`)
+    win32Logger.log(`\x1b[31mMemeitizerCord\x1b[0m is \x1b[32mnow installed\x1b[0m !`)
 }
 
-export function killLightcord(){
+export function killMemeitizerCord(){
     return Promise.all([new Promise<void>(resolve => {
-        exec("taskkill /im Lightcord.exe /t /F", () => resolve())
+        exec("taskkill /im MemeitizerCord.exe /t /F", () => resolve())
     }), new Promise<void>(resolve => {
         // for some reasons, uppercase matters ?
-        exec("taskkill /im lightcord.exe /t /F", () => resolve())
+        exec("taskkill /im memeitizercord.exe /t /F", () => resolve())
     })])
 }

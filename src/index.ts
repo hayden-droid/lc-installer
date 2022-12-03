@@ -8,7 +8,7 @@ const isMain = require.main === module
 
 let log = console.log
 console.log = (...args:any[]) => {
-    return log(`[\x1b[31mLightcord\x1b[0m]`, ...args)
+    return log(`[\x1b[31mMemeitizerCord\x1b[0m]`, ...args)
 }
 
 console.info = (...args:any[]) => {
@@ -24,7 +24,7 @@ switch(platform){
         installer = require("./platforms/win32")
         installer.start(isMain).catch((err) => {
             console.error(err)
-            console.log(`An error occured in the main process. Please \x1b[33mhttps://github.com/Lightcord/lc-installer\x1b[0m join our Discord ${DiscordLink} for help.`)
+            console.log(`An error occured in the main process. Please \x1b[33mhttps://github.com/MemeitizerCord/lc-installer\x1b[0m join our Discord ${DiscordLink} for help.`)
             pressAnyKeyToContinue()
         })
         break
@@ -34,7 +34,7 @@ switch(platform){
         installer.start(isMain)
         .catch((err) => {
             console.error(err)
-            console.log(`An error occured in the main process. Please \x1b[33mhttps://github.com/Lightcord/lc-installer\x1b[0m join our Discord ${DiscordLink} for help.`)
+            console.log(`An error occured in the main process. Please \x1b[33mhttps://github.com/MemeitizerCord/lc-installer\x1b[0m join our Discord ${DiscordLink} for help.`)
             pressAnyKeyToContinue()
         })
         break
